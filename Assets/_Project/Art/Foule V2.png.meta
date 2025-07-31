@@ -1,0 +1,793 @@
+fileFormatVersion: 2
+guid: ebf57eaa53cfd5d44859c87055d88f1b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8532422815575630407
+    second: Foule V2_0
+  - first:
+      213: -2845988412241114465
+    second: Foule V2_1
+  - first:
+      213: -2092133992819721895
+    second: Foule V2_2
+  - first:
+      213: 7192205321716548855
+    second: Foule V2_3
+  - first:
+      213: -8504529009400378508
+    second: Foule V2_4
+  - first:
+      213: 2375498554771500217
+    second: Foule V2_5
+  - first:
+      213: -239197882165797264
+    second: Foule V2_6
+  - first:
+      213: -8330127317264525117
+    second: Foule V2_7
+  - first:
+      213: 6950656263181214872
+    second: Foule V2_8
+  - first:
+      213: -2786511572807846339
+    second: Foule V2_9
+  - first:
+      213: 4913156568349604084
+    second: Foule V2_10
+  - first:
+      213: -2839030097246990862
+    second: Foule V2_11
+  - first:
+      213: 2384183657988723424
+    second: Foule V2_12
+  - first:
+      213: 4014301253119341168
+    second: Foule V2_13
+  - first:
+      213: 5855190083745186777
+    second: Foule V2_14
+  - first:
+      213: 6666421834818285609
+    second: Foule V2_15
+  - first:
+      213: -5664395840667654385
+    second: Foule V2_16
+  - first:
+      213: 3322639108461333709
+    second: Foule V2_17
+  - first:
+      213: 8390202680016510180
+    second: Foule V2_18
+  - first:
+      213: -8567548388458872736
+    second: Foule V2_19
+  - first:
+      213: 6754821673750066985
+    second: Foule V2_20
+  - first:
+      213: -1375359242822286837
+    second: Foule V2_21
+  - first:
+      213: 2576989066875045894
+    second: Foule V2_22
+  - first:
+      213: 9068159848111881770
+    second: Foule V2_23
+  - first:
+      213: 3573536691602518048
+    second: Foule V2_24
+  - first:
+      213: 5931157917924202162
+    second: Foule V2_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Foule V2_0
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 99
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742e2d31851496670800000000000000
+      internalID: 8532422815575630407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_1
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 99
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9a8d752e940188d0800000000000000
+      internalID: -2845988412241114465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_2
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 99
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959f577d73f37f2e0800000000000000
+      internalID: -2092133992819721895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_3
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 99
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f4c69852a8dfc360800000000000000
+      internalID: 7192205321716548855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_4
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 99
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47b8fa4cce7d9f980800000000000000
+      internalID: -8504529009400378508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_5
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 37
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bceb91895777f020800000000000000
+      internalID: 2375498554771500217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_6
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 37
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e5b722bc23eacf0800000000000000
+      internalID: -239197882165797264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_7
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 37
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c89ba00751756c80800000000000000
+      internalID: -8330127317264525117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_8
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 37
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894a2c29b01b57060800000000000000
+      internalID: 6950656263181214872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_9
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 37
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d36f544fc725459d0800000000000000
+      internalID: -2786511572807846339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_10
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 9
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f8fa5e2ed90f2440800000000000000
+      internalID: 4913156568349604084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_11
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 2
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fd43fa1b2db998d0800000000000000
+      internalID: -2839030097246990862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_12
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 5
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e295bda762561120800000000000000
+      internalID: 2384183657988723424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 4
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 072759598b9a5b730800000000000000
+      internalID: 4014301253119341168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_14
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 6
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d3850aeb50d14150800000000000000
+      internalID: 5855190083745186777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_15
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 4
+        width: 7
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920704ba653e38c50800000000000000
+      internalID: 6666421834818285609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_16
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 4
+        width: 7
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f07edc18ef50461b0800000000000000
+      internalID: -5664395840667654385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_17
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 4
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcc88a04aa26c1e20800000000000000
+      internalID: 3322639108461333709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_18
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 4
+        width: 10
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ec1aef52ecff6470800000000000000
+      internalID: 8390202680016510180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_19
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 4
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06040fd2224f91980800000000000000
+      internalID: -8567548388458872736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_20
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 4
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9277bf01682fdbd50800000000000000
+      internalID: 6754821673750066985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_21
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 6
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b02070d3e0eb9ece0800000000000000
+      internalID: -1375359242822286837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_22
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 6
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 608072127ed43c320800000000000000
+      internalID: 2576989066875045894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_23
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 6
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2e3b21365398dd70800000000000000
+      internalID: 9068159848111881770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_24
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 6
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 020fac600b0c79130800000000000000
+      internalID: 3573536691602518048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foule V2_25
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 6
+        width: 10
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b61e94a3b4bf4250800000000000000
+      internalID: 5931157917924202162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3596a734f82f74b4c9de8d20bfdef2b8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Foule V2_0: 8532422815575630407
+      Foule V2_1: -2845988412241114465
+      Foule V2_10: 4913156568349604084
+      Foule V2_11: -2839030097246990862
+      Foule V2_12: 2384183657988723424
+      Foule V2_13: 4014301253119341168
+      Foule V2_14: 5855190083745186777
+      Foule V2_15: 6666421834818285609
+      Foule V2_16: -5664395840667654385
+      Foule V2_17: 3322639108461333709
+      Foule V2_18: 8390202680016510180
+      Foule V2_19: -8567548388458872736
+      Foule V2_2: -2092133992819721895
+      Foule V2_20: 6754821673750066985
+      Foule V2_21: -1375359242822286837
+      Foule V2_22: 2576989066875045894
+      Foule V2_23: 9068159848111881770
+      Foule V2_24: 3573536691602518048
+      Foule V2_25: 5931157917924202162
+      Foule V2_3: 7192205321716548855
+      Foule V2_4: -8504529009400378508
+      Foule V2_5: 2375498554771500217
+      Foule V2_6: -239197882165797264
+      Foule V2_7: -8330127317264525117
+      Foule V2_8: 6950656263181214872
+      Foule V2_9: -2786511572807846339
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
