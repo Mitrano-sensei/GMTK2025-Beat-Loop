@@ -13,6 +13,7 @@ public class PlayersManager : MonoBehaviour
     [SerializeField] private int maxTurns = 3;
     
     [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference undoAction;
 
     private PlayerController CurrentPlayer => _playerMovements[_currentPlayer].Player;
     private PlayerMovements CurrentPlayerMovements => _playerMovements[_currentPlayer];
@@ -45,6 +46,15 @@ public class PlayersManager : MonoBehaviour
             await OnMove(GetDirectionFromInput(ctx.ReadValue<Vector2>()));
             _isMoving = false;
         };
+
+        undoAction.action.performed += async ctx =>
+        {
+            if (_isMoving) return;
+
+            _isMoving = true;
+            await Undo();
+            _isMoving = false;
+        };
     }
 
     private void OnEnable()
@@ -59,7 +69,7 @@ public class PlayersManager : MonoBehaviour
 
     private async Task OnMove(Vector3Int movement)
     {
-        Debug.Log("Call");
+        Debug.Log("Movement Call");
         if (CurrentPlayer.IsMoving() || movement == Vector3Int.zero)
             return;
         
@@ -141,6 +151,39 @@ public class PlayersManager : MonoBehaviour
         tasks2[_currentPlayer] = CurrentPlayer.Move(-movement);
         await Task.WhenAll(tasks2);
         return;
+    }
+
+    private async Task Undo()
+    {
+        if (_currentTurn == 0)
+        {
+            Debug.LogWarning("Can't undo");
+            // TODO : Fail sound
+            return;
+        }
+        
+        Debug.Log("Undoing");
+
+        // For current player
+        List<Task> undoTasks = new ();
+        
+        undoTasks.Add(UndoPlayer(CurrentPlayerMovements, true));
+
+        // For players before
+        foreach (PlayerMovements playerMovement in PlayerBeforeCurrent)
+        {
+            undoTasks.Add(UndoPlayer(playerMovement));
+        }
+        
+        await Task.WhenAll(undoTasks);
+        
+        _currentTurn--;
+    }
+    
+    private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
+    {
+        await playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]);
+        if (removeFromMovement) playerMovement.Movements.RemoveAt(_currentTurn - 1);
     }
 
     private Vector3Int GetDirectionFromInput(Vector2 input)

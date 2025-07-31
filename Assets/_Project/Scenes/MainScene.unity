@@ -204,6 +204,7 @@ MonoBehaviour:
   - {fileID: 1931759060}
   maxTurns: 3
   moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  undoAction: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,16 +1909,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: playerBodyTransform
-      value: 
-      objectReference: {fileID: 1085864685}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
       propertyPath: movementTweenSettings.ease
       value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.duration
-      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7921777059510819521, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
       propertyPath: m_LocalPosition.x
