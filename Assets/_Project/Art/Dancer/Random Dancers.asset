@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+  m_Name: Random Dancers
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 1922361786317365643, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: 1922361786317365643, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -1855407322615462393, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -6708178094531513894, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -4690631263034230158, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: 2948006504315980049, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -376704927924486758, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -5919354959727412598, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -2581294395232970394, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -8945581493683528161, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: 5213929504568907844, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -170087792267608309, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: 8759773793248265090, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -120667526147922667, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: 72188269270741698, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: 4494794591045262316, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    - {fileID: -4805566565855133289, guid: b5c42a7df1a6b6f40a759449bd62d8d2, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.2563
+    m_Output: 1
+    m_ColliderType: 1
+    m_RandomTransform: 2
+    m_Neighbors: 
+    m_NeighborPositions: []
+    m_RuleTransform: 0
