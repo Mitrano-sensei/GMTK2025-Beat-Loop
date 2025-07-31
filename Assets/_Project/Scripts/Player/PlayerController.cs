@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
     }
     
-    public async void MoveTo(Vector3Int newPosition)
+    public async Task MoveTo(Vector3Int newPosition)
     {
         await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
     }

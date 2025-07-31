@@ -14,6 +14,7 @@ public class PlayersManager : MonoBehaviour
     
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference undoAction;
+    [SerializeField] private InputActionReference restartAction;
 
     private PlayerController CurrentPlayer => _playerMovements[_currentPlayer].Player;
     private PlayerMovements CurrentPlayerMovements => _playerMovements[_currentPlayer];
@@ -55,6 +56,33 @@ public class PlayersManager : MonoBehaviour
             await Undo();
             _isMoving = false;
         };
+
+        restartAction.action.performed += async ctx =>
+        {
+            if (_isMoving) return;
+            _isMoving = true;
+            await Reset();
+            _isMoving = false;
+        };
+    }
+
+    private async Task Reset()
+    {
+        List<Task> tasks = new ();
+        foreach (var playerMovement in _playerMovements)
+        {
+            playerMovement.Movements.Clear();
+            tasks.Add(playerMovement.Player.MoveTo(playerMovement.InitialPosition));
+            _currentPlayer = 0;
+            _currentTurn = 0;
+        }
+        
+        await Task.WhenAll(tasks);
+        _playerMovements[0].Player.gameObject.SetActive(true);
+        for (int i = 1; i < _playerMovements.Length; i++)
+        {
+            _playerMovements[i].Player.gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
