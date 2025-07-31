@@ -203,10 +203,31 @@ MonoBehaviour:
   note1: {fileID: 1882919228898048917}
   note2: {fileID: 8956101409380754716}
   note3: {fileID: 8979405358140654366}
+  placeHolder: {fileID: 1185520106800181656}
   rotationSettings:
     startFromCurrent: 0
     startValue: {x: 0, y: 0, z: 30}
-    endValue: {x: 0, y: 0, z: 0}
+    endValue: {x: 0, y: 0, z: -5}
+    settings:
+      duration: 1
+      ease: 30
+      customEase:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      cycles: -1
+      cycleMode: 1
+      startDelay: 0
+      endDelay: 0
+      useUnscaledTime: 0
+      _useFixedUpdate: 0
+      _updateType: 0
+  scaleSettings:
+    startFromCurrent: 0
+    startValue: {x: 0.5, y: 0.5, z: 0.5}
+    endValue: {x: 0.45, y: 0.45, z: 0.45}
     settings:
       duration: 1
       ease: 30
@@ -382,6 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 436516879236479711}
+  - component: {fileID: 6091063653131620250}
   m_Layer: 0
   m_Name: Notes
   m_TagString: Untagged
@@ -406,6 +428,24 @@ Transform:
   - {fileID: 4861624071128301102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6091063653131620250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075035029599043496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e9630890e2d1040b02599b57f6fd65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer1: {fileID: 6371837218729738429}
+  spriteRenderer2: {fileID: 6548227306860476103}
+  spriteRenderer3: {fileID: 5211928756825522134}
+  initialNote1Active: 0
+  initialNote2Active: 0
+  initialNote3Active: 0
 --- !u!1 &7634680316801922119
 GameObject:
   m_ObjectHideFlags: 0
