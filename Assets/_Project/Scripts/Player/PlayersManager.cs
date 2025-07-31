@@ -116,7 +116,6 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task OnMove(Vector3Int movement)
     {
-        Debug.Log("Movement Call");
         if (CurrentPlayer.IsMoving() || movement == Vector3Int.zero)
             return;
 
@@ -210,7 +209,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
     }
 
-    private void CheckIfTookNote(NoteController noteController, int playerNumber,
+    private async void CheckIfTookNote(NoteController noteController, int playerNumber,
         PlayerMovements playerMovements)
     {
         var player = playerMovements.Player;
@@ -249,8 +248,6 @@ public class PlayersManager : Singleton<PlayersManager>
             // TODO : Fail sound
             return;
         }
-
-        Debug.Log("Undoing");
 
         // For current player
         List<Task> undoTasks = new();

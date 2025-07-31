@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,6 +11,10 @@ public class NoteController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer1;
     [SerializeField] private SpriteRenderer spriteRenderer2;
     [SerializeField] private SpriteRenderer spriteRenderer3;
+    
+    [SerializeField] private Transform note1;
+    [SerializeField] private Transform note2;
+    [SerializeField] private Transform note3;
 
     [SerializeField] private bool initialNote1Active;
     [SerializeField] private bool initialNote2Active;
@@ -17,12 +23,15 @@ public class NoteController : MonoBehaviour
     private bool _isNote1Active;
     private bool _isNote2Active;
     private bool _isNote3Active;
+
+    private Vector3 _baseScale;
     
     public Vector3Int GridPosition => groundTileMap.WorldToCell(transform.position);
     public int RemainingNotes => (_isNote1Active ? 1 : 0) + (_isNote2Active ? 1 : 0) + (_isNote3Active ? 1 : 0);
 
     private void Start()
     {
+        _baseScale = note1.localScale;
         Reset();
         FixPlayerPositionToGrid();
         PlayersManager.Instance.RegisterNoteController(this);
@@ -51,8 +60,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote1Active = false;
-                // TODO : Animation/Sound
-                spriteRenderer1.enabled = false;
+                DeathAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active)
@@ -61,8 +69,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote2Active = false;
-                // TODO : Animation/Sound
-                spriteRenderer2.enabled = false;
+                DeathAnimation(note2, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active)
@@ -71,8 +78,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote3Active = false;
-                // TODO : Animation/Sound
-                spriteRenderer3.enabled = false;
+                DeathAnimation(note3, spriteRenderer3);
                 break;
         }
 
@@ -81,27 +87,42 @@ public class NoteController : MonoBehaviour
 
     public void ReturnNote(int type)
     {
-        // TODO : Animate + Sound
         switch (type)
         {
             case 1:
                 if (!initialNote1Active) throw new Exception("Pas déprenable");
                 _isNote1Active = true;
-                spriteRenderer1.enabled = true;
+                ComeBackAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active) throw new Exception("Pas déprenable");
                 _isNote2Active = true;
-                spriteRenderer2.enabled = true;
+                ComeBackAnimation(note1, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active) throw new Exception("Pas déprenable");
                 _isNote3Active = true;
-                spriteRenderer3.enabled = true;
+                ComeBackAnimation(note1, spriteRenderer3);
                 break;
             
         }
-        
+    }
+
+    private async void DeathAnimation(Transform note, SpriteRenderer spriteRenderer)
+    {
+        // TODO: Sound
+        await Tween.Scale(note, startValue:_baseScale, endValue:Vector3.zero, duration: 0.5f, Ease.OutBounce);
+        spriteRenderer.enabled = false;
+        note.localScale = _baseScale;
+    }
+    
+    private async void ComeBackAnimation(Transform note, SpriteRenderer spriteRenderer)
+    {
+        // TODO : Sound
+        note.localScale = Vector3.zero;
+        spriteRenderer.enabled = true;
+        await Tween.Scale(note, startValue:Vector3.zero, endValue:_baseScale, duration: 0.5f, Ease.OutBounce);
+        note.localScale = _baseScale;
     }
     
     private Vector3 CellToWorld(Tilemap tilemap, Vector3Int position)
@@ -116,6 +137,10 @@ public class NoteController : MonoBehaviour
         _isNote1Active = initialNote1Active;
         _isNote2Active = initialNote2Active;
         _isNote3Active = initialNote3Active;
+
+        Tween.StopAll(note1);
+        Tween.StopAll(note2);
+        Tween.StopAll(note3);
         
         spriteRenderer1.enabled = _isNote1Active;
         spriteRenderer2.enabled = _isNote2Active;

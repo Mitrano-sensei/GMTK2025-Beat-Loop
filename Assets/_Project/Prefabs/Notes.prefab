@@ -440,9 +440,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e9630890e2d1040b02599b57f6fd65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundTileMap: {fileID: 0}
   spriteRenderer1: {fileID: 6371837218729738429}
   spriteRenderer2: {fileID: 6548227306860476103}
   spriteRenderer3: {fileID: 5211928756825522134}
+  note1: {fileID: 1882919228898048917}
+  note2: {fileID: 8956101409380754716}
+  note3: {fileID: 8979405358140654366}
   initialNote1Active: 0
   initialNote2Active: 0
   initialNote3Active: 0
