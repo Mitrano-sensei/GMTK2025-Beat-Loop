@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 3de2e51c0aaaa1046ae59d11a059ab29
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1629829390159772359
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_0
+  - first:
+      213: -1280772590330039327
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_1
+  - first:
+      213: 7903850998455378362
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_2
+  - first:
+      213: 1589116979049360572
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_3
+  - first:
+      213: -3485501424091944319
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_4
+  - first:
+      213: -6587317380565256727
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_5
+  - first:
+      213: -2418723569263383484
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_6
+  - first:
+      213: -7160514047766286325
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_7
+  - first:
+      213: -9084288167945515388
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_8
+  - first:
+      213: 4558854143864622948
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_9
+  - first:
+      213: 7159192781083970734
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_10
+  - first:
+      213: -2545194693452550323
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_11
+  - first:
+      213: 6180788744638107641
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_12
+  - first:
+      213: -8873852522206398525
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_13
+  - first:
+      213: -4582450464402874643
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_14
+  - first:
+      213: 1632163918617918188
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_15
+  - first:
+      213: -4375953577820805160
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_16
+  - first:
+      213: 4724314094511739220
+    second: MegaPixelArt32x32pxIcons_SpriteSheet 1_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_0
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 384
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 935090b0ecea169e0800000000000000
+      internalID: -1629829390159772359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_1
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 384
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e3325b6d18c93ee0800000000000000
+      internalID: -1280772590330039327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_2
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 343
+        width: 9
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1ac805b9e10bd60800000000000000
+      internalID: 7903850998455378362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_3
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 342
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbc67c2197dad0610800000000000000
+      internalID: 1589116979049360572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 345
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18aa1e8fbe201afc0800000000000000
+      internalID: -3485501424091944319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 344
+        width: 7
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e5b6a45eb52594a0800000000000000
+      internalID: -6587317380565256727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_6
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 346
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ce03c8ab7fe6ed0800000000000000
+      internalID: -2418723569263383484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_7
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 344
+        width: 7
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0032bd596eb0ac90800000000000000
+      internalID: -7160514047766286325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_8
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 344
+        width: 7
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ec258ba002ee180800000000000000
+      internalID: -9084288167945515388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 344
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46f4ed3a0bd444f30800000000000000
+      internalID: 4558854143864622948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_10
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 344
+        width: 10
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eac0d0347ef8a5360800000000000000
+      internalID: 7159192781083970734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_11
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 344
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f2d8c49e6adacd0800000000000000
+      internalID: -2545194693452550323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_12
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 344
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ff03e3bd9296c550800000000000000
+      internalID: 6180788744638107641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_13
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 346
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c7fea0952eb9d480800000000000000
+      internalID: -8873852522206398525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_14
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 346
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dee517cd49dd760c0800000000000000
+      internalID: -4582450464402874643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_15
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 346
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cea3e68bf6c96a610800000000000000
+      internalID: 1632163918617918188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_16
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 346
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d72460e76d7543c0800000000000000
+      internalID: -4375953577820805160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MegaPixelArt32x32pxIcons_SpriteSheet 1_17
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 346
+        width: 10
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4515eb273a2209140800000000000000
+      internalID: 4724314094511739220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c65f153f6be045b4e80e9934c53354e1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_0: -1629829390159772359
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_1: -1280772590330039327
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_10: 7159192781083970734
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_11: -2545194693452550323
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_12: 6180788744638107641
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_13: -8873852522206398525
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_14: -4582450464402874643
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_15: 1632163918617918188
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_16: -4375953577820805160
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_17: 4724314094511739220
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_2: 7903850998455378362
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_3: 1589116979049360572
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_4: -3485501424091944319
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_5: -6587317380565256727
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_6: -2418723569263383484
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_7: -7160514047766286325
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_8: -9084288167945515388
+      MegaPixelArt32x32pxIcons_SpriteSheet 1_9: 4558854143864622948
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
