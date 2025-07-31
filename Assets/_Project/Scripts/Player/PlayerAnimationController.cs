@@ -1,17 +1,21 @@
-using System;
+using System.Threading.Tasks;
 using PrimeTween;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    [SerializeField] private Transform playerBodyTransform;
     [SerializeField] private Transform modelTransform;
 
     [Header("Idle")]
     [SerializeField] private TweenSettings<Vector3> idleJiggleTweenSettings;
     [SerializeField] private TweenSettings<Vector3> idleBreatheTweenSettings;
     
+    [Header("Movement")]
+    [SerializeField] private TweenSettings movementTweenSettings;
+    
     private Sequence _idleTween;
+    public bool IsMoving { get; private set; }
 
     private void Start()
     {
@@ -30,6 +34,8 @@ public class PlayerAnimationController : MonoBehaviour
     {
         SetupIdleTween();
     }
+    
+    #region Idle
     
     private void SetupIdleTween()
     {
@@ -67,4 +73,21 @@ public class PlayerAnimationController : MonoBehaviour
         _idleTween.Stop();
         _idleTween.isPaused = true;
     }
+    
+    #endregion
+    
+    #region Movement
+
+    public async Task MoveTo(Vector3 targetWorldPosition)
+    {
+        if (targetWorldPosition == playerBodyTransform.position)
+            return;
+        
+        IsMoving = true;
+        await Tween.Position(playerBodyTransform, targetWorldPosition, settings: movementTweenSettings);
+        modelTransform.position = targetWorldPosition;
+        IsMoving = false;
+    }
+    
+    #endregion
 }

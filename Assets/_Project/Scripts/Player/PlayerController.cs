@@ -40,22 +40,19 @@ public class PlayerController : MonoBehaviour
         moveAction.action.Disable();
     }
 
-    private void OnMove(InputAction.CallbackContext context)
+    private async void OnMove(InputAction.CallbackContext context)
     {
+        if (playerAnimationController.IsMoving)
+            return;
+        
         Vector3Int movement = GetDirectionFromInput(context.ReadValue<Vector2>());
         var position = groundTileMap.WorldToCell(transform.position);
         var newPosition = position + movement;
 
         if (CanMove(newPosition))
-        {
-            // Animate
-            transform.position = CellToWorld(groundTileMap, newPosition);
-        }
+            await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
         else
-        {
-            // Animate
-            transform.position = CellToWorld(groundTileMap, position);
-        }
+            await playerAnimationController.MoveTo(CellToWorld(groundTileMap, position));
     }
 
     private bool CanMove(Vector3Int position)
