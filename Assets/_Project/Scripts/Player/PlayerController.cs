@@ -1,90 +1,75 @@
-using System;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
-using Utilities;
-using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movements")]
-    [SerializeField] private InputActionReference moveAction;
     [SerializeField] private Tilemap groundTileMap;
     [SerializeField] private Tilemap obstacleTileMap;
     
     [Header("Animations")]
     [SerializeField] private PlayerAnimationController playerAnimationController;
+    
+    public Vector3Int CurrentCellPosition => groundTileMap.WorldToCell(transform.position);
 
     private void Start()
     {
-        moveAction.action.performed += OnMove;
-        FixPlayerPositionToGrid(groundTileMap);
+        if (groundTileMap == null) Debug.LogError("Ground tilemap is null");
+        if (obstacleTileMap == null) Debug.LogError("Obstacle tilemap is null");
     }
 
-    private void FixPlayerPositionToGrid(Tilemap tilemap)
+    public void FixPlayerPositionToGrid()
     {
-        var position = tilemap.WorldToCell(transform.position);
+        var position = groundTileMap.WorldToCell(transform.position);
         transform.position = CellToWorld(groundTileMap, position);
     }
 
     private void OnEnable()
     {
         playerAnimationController.StartIdleAnimation();
-        moveAction.action.Enable();
     }
 
-    private void OnDisable()
+    public async Task Move(Vector3Int movement)
     {
-        // playerAnimationController.StopIdleAnimation();
-        moveAction.action.Disable();
-    }
-
-    private async void OnMove(InputAction.CallbackContext context)
-    {
-        if (playerAnimationController.IsMoving)
-            return;
-        
-        Vector3Int movement = GetDirectionFromInput(context.ReadValue<Vector2>());
         var position = groundTileMap.WorldToCell(transform.position);
         var newPosition = position + movement;
 
-        if (CanMove(newPosition))
-            await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
-        else
-            await playerAnimationController.MoveTo(CellToWorld(groundTileMap, position));
+        await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
+    }
+    
+    public async void MoveTo(Vector3Int newPosition)
+    {
+        await playerAnimationController.MoveTo(CellToWorld(groundTileMap, newPosition));
+    }
+    
+    public async Task FailMove(Vector3Int movement)
+    {
+        await playerAnimationController.MoveTo(CellToWorld(groundTileMap, CurrentCellPosition + movement));
+        await playerAnimationController.MoveTo(CellToWorld(groundTileMap, CurrentCellPosition - movement));
     }
 
-    private bool CanMove(Vector3Int position)
+
+    public bool CanMove(Vector3Int movement)
     {
+        var position = groundTileMap.WorldToCell(transform.position);
+        var newPosition = position + movement;
+        
         // Check if a grid has a tile at this position
-        var groundHasTile = groundTileMap.HasTile(position);
+        var groundHasTile = groundTileMap.HasTile(newPosition);
         groundHasTile = true; // FIXME : Remove when we use groundtiles
-        var noObstacleTile = !obstacleTileMap.HasTile(position);
+        var noObstacleTile = !obstacleTileMap.HasTile(newPosition);
         return groundHasTile && noObstacleTile;
-    }
-
-    private Vector3Int GetDirectionFromInput(Vector2 input)
-    {
-        float delta = .1f;
-        if (input.x > delta)
-            return Vector3Int.right;
-
-        if (input.x < -delta)
-            return Vector3Int.left;
-
-        if (input.y > delta)
-            return Vector3Int.up;
-
-        if (input.y < -delta)
-            return Vector3Int.down;
-
-        return Vector3Int.zero;
     }
 
     private Vector3 CellToWorld(Tilemap tilemap, Vector3Int position)
     {
         return tilemap.CellToWorld(position) + Vector3.right * (tilemap.cellSize.x / 2) +
                Vector3.up * (tilemap.cellSize.y / 2);
+    }
+
+    public bool IsMoving()
+    {
+        return playerAnimationController.IsMoving;
     }
 }
