@@ -100,7 +100,7 @@ public class NoteController : MonoBehaviour
 
     private async Task DeathAnimation(Transform note, SpriteRenderer spriteRenderer)
     {
-        await Tween.Scale(note, startValue: _baseScale, endValue: Vector3.zero, duration: 0.5f, Ease.OutBounce);
+        await Tween.Scale(note, startValue: _baseScale, endValue: Vector3.zero, duration: 0.2f, Ease.OutBounce);
         spriteRenderer.enabled = false;
         note.localScale = _baseScale;
     }
@@ -109,7 +109,7 @@ public class NoteController : MonoBehaviour
     {
         note.localScale = Vector3.zero;
         spriteRenderer.enabled = true;
-        await Tween.Scale(note, startValue: Vector3.zero, endValue: _baseScale, duration: 0.5f, Ease.OutBounce);
+        await Tween.Scale(note, startValue: Vector3.zero, endValue: _baseScale, duration: 0.2f, Ease.OutBounce);
         note.localScale = _baseScale;
     }
 
@@ -122,13 +122,13 @@ public class NoteController : MonoBehaviour
 
     public void Reset()
     {
-        _isNote1Active = initialNote1Active;
-        _isNote2Active = initialNote2Active;
-        _isNote3Active = initialNote3Active;
-
         Tween.StopAll(note1);
         Tween.StopAll(note2);
         Tween.StopAll(note3);
+
+        _isNote1Active = initialNote1Active;
+        _isNote2Active = initialNote2Active;
+        _isNote3Active = initialNote3Active;
 
         spriteRenderer1.enabled = _isNote1Active;
         spriteRenderer2.enabled = _isNote2Active;

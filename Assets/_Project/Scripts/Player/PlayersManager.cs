@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Utilities;
 
 public class PlayersManager : Singleton<PlayersManager>
@@ -18,6 +19,8 @@ public class PlayersManager : Singleton<PlayersManager>
 
     [SerializeField] private List<KeyLockData> keyLockDatas;
 
+    [SerializeField] private Button restartButton;
+
     private PlayerController CurrentPlayer => _playersMovements[_currentPlayer].Player;
     private PlayerMovements CurrentPlayerMovements => _playersMovements[_currentPlayer];
     private PlayerMovements[] PlayerBeforeCurrent => _playersMovements.Take(_currentPlayer).ToArray();
@@ -26,6 +29,9 @@ public class PlayersManager : Singleton<PlayersManager>
     private List<KeyScript> Keys => keyLockDatas.Select(kl => kl.key).ToList();
 
     private PlayerMovements[] _playersMovements;
+
+    private DeathScreen _deathScreen;
+    private WinScreen _winScreen;
 
     private int CurrentTurn
     {
@@ -52,6 +58,11 @@ public class PlayersManager : Singleton<PlayersManager>
     {
         SetupPlayerMovements();
         SetupInputs();
+
+        _deathScreen = DeathScreen.Instance;
+        _winScreen = WinScreen.Instance;
+
+        restartButton.onClick.AddListener(async () => await Reset());
     }
 
     private void SetupInputs()
@@ -97,8 +108,10 @@ public class PlayersManager : Singleton<PlayersManager>
         }
     }
 
-    private async Task Reset()
+    public async Task Reset()
     {
+        _deathScreen.Hide();
+        _winScreen.Hide();
         _currentPlayer = 0;
         CurrentTurn = 0;
 
@@ -120,6 +133,8 @@ public class PlayersManager : Singleton<PlayersManager>
         // Reset Notes
         ResetNotes();
         ResetKeys();
+
+        await Task.Yield();
     }
 
     private void ResetNotes()
@@ -277,25 +292,13 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         // Here we are at the end of a player round
+        
         CurrentTurn = 0;
         _currentPlayer += 1;
 
         if (_currentPlayer > playerControllers.Length - 1)
         {
-            Debug.Log("Game finished");
-            if (_notes.Exists(n => n.RemainingNotes > 0))
-            {
-                Debug.LogError("Game finished with remaining notes :c");
-                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
-                _audioManager.PlayLooseSound();
-            }
-            else
-            {
-                Debug.LogError("Win !!");
-                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
-                _audioManager.PlayWinSound();
-            }
-
+            ManageEndGame();
             return;
         }
 
@@ -310,6 +313,38 @@ public class PlayersManager : Singleton<PlayersManager>
         ResetKeys();
     }
 
+    private void ManageEndGame()
+    {
+        // To enable undo
+        _currentPlayer--;
+        CurrentTurn = maxTurns;
+            
+        Debug.Log("Game finished");
+        if (_notes.Exists(n => n.RemainingNotes > 0))
+        {
+            LooseScreen();
+        }
+        else
+        {
+            ShowWinScreen();
+        }
+    }
+
+    private void LooseScreen()
+    {
+        if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+        _audioManager.PlayLooseSound();
+        _deathScreen.Show();
+    }
+
+    [ContextMenu("Win")]
+    private void ShowWinScreen()
+    {
+        if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+        _audioManager.PlayWinSound();
+        _winScreen.Show();
+    }
+
     private async Task CheckIfTookNote(NoteController noteController, int playerNumber,
         PlayerMovements playerMovements)
     {
@@ -318,7 +353,7 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
-        noteController.TakeNote(noteType);
+        await noteController.TakeNote(noteType);
 
         playerMovements.TookNotes.Add(new TookNoteData(noteController, CurrentTurn - 1, noteType));
         playerMovements.Player.PickupItem();
@@ -342,7 +377,13 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task Undo()
     {
-        if (CurrentTurn == 0)
+        _deathScreen.Hide();
+        _winScreen.Hide();
+
+        // Allow undo of very last move
+        var lastMove = _currentPlayer == _playersMovements.Length - 1 && CurrentTurn == maxTurns;
+        
+        if (CurrentTurn == 0 && !lastMove)
         {
             Debug.LogWarning("Can't undo");
             if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
@@ -353,6 +394,13 @@ public class PlayersManager : Singleton<PlayersManager>
         if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
         _audioManager.PlayUndoSound();
         
+        await UndoEveryone();
+
+        CurrentTurn--;
+    }
+
+    private async Task UndoEveryone()
+    {
         // For current player
         List<Task> undoTasks = new();
 
@@ -365,8 +413,6 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         await Task.WhenAll(undoTasks);
-
-        CurrentTurn--;
     }
 
     private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
@@ -379,6 +425,7 @@ public class PlayersManager : Singleton<PlayersManager>
         {
             var noteController = lastPickedItem.Reference;
             undoTasks.Add(noteController.ReturnNote(lastPickedItem.NoteType));
+            playerMovement.TookNotes.Remove(lastPickedItem);
         }
 
         // Check keys
@@ -387,6 +434,7 @@ public class PlayersManager : Singleton<PlayersManager>
         {
             var key = lastPickedKey.key;
             undoTasks.Add(key.Reset());
+            playerMovement.TookKeys.Remove(lastPickedKey);
         }
 
         // Move Player
