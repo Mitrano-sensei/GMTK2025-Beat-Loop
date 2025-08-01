@@ -9,7 +9,7 @@ using Utilities;
 public class PlayersManager : Singleton<PlayersManager>
 {
     [SerializeField] private PlayerController[] playerControllers;
-    
+
     [SerializeField] private int maxTurns = 3;
 
     [SerializeField] private InputActionReference moveAction;
@@ -104,6 +104,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Reset Notes
         ResetNotes();
+        ResetKeys();
     }
 
     private void ResetNotes()
@@ -116,6 +117,19 @@ public class PlayersManager : Singleton<PlayersManager>
         foreach (var playerMovement in _playersMovements)
         {
             playerMovement.TookNotes.Clear();
+        }
+    }
+
+    private void ResetKeys()
+    {
+        foreach (var key in Keys)
+        {
+            key.Reset();
+        }
+
+        foreach (var playerMovement in _playersMovements)
+        {
+            playerMovement.TookKeys.Clear();
         }
     }
 
@@ -154,13 +168,13 @@ public class PlayersManager : Singleton<PlayersManager>
                 return;
             }
         }
-        
+
         // Check if there is a lock in our destination
         foreach (LockScript l in Locks)
         {
             if (!l.gameObject.activeSelf)
                 continue;
-            
+
             if (l.GridPosition == (CurrentPlayer.CurrentCellPosition + movement))
             {
                 await CurrentPlayer.FailMove(movement);
@@ -197,35 +211,52 @@ public class PlayersManager : Singleton<PlayersManager>
         _currentTurn++;
 
         // Check if we took a note
+        List<Task> pickupTasks = new();
         foreach (NoteController noteController in _notes)
         {
             var playerNumber = _currentPlayer;
-            var player = CurrentPlayer;
             var playerMovements = CurrentPlayerMovements;
 
-            await CheckIfTookNote(noteController, playerNumber, playerMovements);
+            pickupTasks.Add(CheckIfTookNote(noteController, playerNumber, playerMovements));
+
+            // Check if another player took a note
             for (int i = 0; i < _currentPlayer; i++)
             {
-                await CheckIfTookNote(noteController, i, _playersMovements[i]);
+                pickupTasks.Add(CheckIfTookNote(noteController, i, _playersMovements[i]));
             }
         }
-        
+
         // Check if we took a key
+        
         foreach (KeyScript key in Keys)
         {
             if (!key.gameObject.activeSelf)
                 continue;
-            
+
             if (key.Position == CurrentPlayer.CurrentCellPosition)
             {
-                key.OnPickup();
-                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn));
+                pickupTasks.Add(key.OnPickup());
+                CurrentPlayer.PickupItem();
+                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
+            }
+
+            // Check if another player took a key
+            for (int i = 0; i < _currentPlayer; i++)
+            {
+                if (key.Position == _playersMovements[i].Player.CurrentCellPosition)
+                {
+                    pickupTasks.Add(key.OnPickup());
+                    _playersMovements[i].Player.PickupItem();
+                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
+                }
             }
         }
 
+        await Task.WhenAll(pickupTasks);
+
         if (_currentTurn != maxTurns)
             return;
-        
+
         // Here we are at the end of a player round
         _currentTurn = 0;
         _currentPlayer += 1;
@@ -250,6 +281,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         ResetNotes();
+        ResetKeys();
     }
 
     private async Task CheckIfTookNote(NoteController noteController, int playerNumber,
@@ -260,13 +292,12 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
-        var tookNote = await noteController.TakeNote(noteType);
+        noteController.TakeNote(noteType);
 
-        if (tookNote)
-        {
-            // TODO : Take note sound
-            playerMovements.TookNotes.Add(new TookNoteData(noteController, _currentTurn - 1, noteType));
-        }
+        playerMovements.TookNotes.Add(new TookNoteData(noteController, _currentTurn - 1, noteType));
+        playerMovements.Player.PickupItem();
+
+        await Task.Yield();
     }
 
     private async void CancelMovements(Vector3Int movement)
@@ -310,17 +341,29 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
     {
-        // Check items
+        List<Task> undoTasks = new();
+
+        // Check notes
         var lastPickedItem = playerMovement.TookNotes.LastOrDefault();
         if (lastPickedItem != null && lastPickedItem.Turn == _currentTurn - 1)
         {
             var noteController = lastPickedItem.Reference;
-            noteController.ReturnNote(lastPickedItem.NoteType);
+            undoTasks.Add(noteController.ReturnNote(lastPickedItem.NoteType));
+        }
+
+        // Check keys
+        var lastPickedKey = playerMovement.TookKeys.LastOrDefault();
+        if (lastPickedKey != null && lastPickedKey.Turn == _currentTurn - 1)
+        {
+            var key = lastPickedKey.key;
+            undoTasks.Add(key.Reset());
         }
 
         // Move Player
-        await playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]);
+        undoTasks.Add(playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]));
         if (removeFromMovement) playerMovement.Movements.RemoveAt(_currentTurn - 1);
+
+        await Task.WhenAll(undoTasks);
     }
 
     private Vector3Int GetDirectionFromInput(Vector2 input)
@@ -362,6 +405,7 @@ public class PlayersManager : Singleton<PlayersManager>
             Player = player;
             Movements = new();
             TookNotes = new();
+            TookKeys = new();
             InitialPosition = player.CurrentCellPosition;
         }
     }

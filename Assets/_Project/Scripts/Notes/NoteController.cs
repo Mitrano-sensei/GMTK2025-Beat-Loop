@@ -43,66 +43,54 @@ public class NoteController : MonoBehaviour
         transform.position = CellToWorld(groundTileMap, position);
     }
     
-    public async Task<bool> TakeNote(int noteNumber)
+    public async Task TakeNote(int noteNumber)
     {
         if (noteNumber is < 1 or > 3)
         {
             Debug.LogError("Pliz noteNumber entre 1 et 3");
-            return false;
+            return;
         }
         
         switch (noteNumber)
         {
             case 1:
                 if (!initialNote1Active)
-                {
-                    Debug.LogError("Pas prenable");
-                    return false;
-                }
                 _isNote1Active = false;
                 await DeathAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active)
-                {
-                    Debug.LogError("Pas prenable");
-                    return false;
-                }
                 _isNote2Active = false;
                 await DeathAnimation(note2, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active)
-                {
-                    Debug.LogError("Pas prenable");
-                    return false;
-                }
                 _isNote3Active = false;
                 await DeathAnimation(note3, spriteRenderer3);
                 break;
         }
 
-        return true;
+        return;
     }
 
-    public void ReturnNote(int type)
+    public async Task ReturnNote(int type)
     {
         switch (type)
         {
             case 1:
                 if (!initialNote1Active) throw new Exception("Pas déprenable");
                 _isNote1Active = true;
-                ComeBackAnimation(note1, spriteRenderer1);
+                await ComeBackAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active) throw new Exception("Pas déprenable");
                 _isNote2Active = true;
-                ComeBackAnimation(note1, spriteRenderer2);
+                await ComeBackAnimation(note1, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active) throw new Exception("Pas déprenable");
                 _isNote3Active = true;
-                ComeBackAnimation(note1, spriteRenderer3);
+                await ComeBackAnimation(note1, spriteRenderer3);
                 break;
             
         }
@@ -116,7 +104,7 @@ public class NoteController : MonoBehaviour
         note.localScale = _baseScale;
     }
     
-    private async void ComeBackAnimation(Transform note, SpriteRenderer spriteRenderer)
+    private async Task ComeBackAnimation(Transform note, SpriteRenderer spriteRenderer)
     {
         // TODO : Sound
         note.localScale = Vector3.zero;

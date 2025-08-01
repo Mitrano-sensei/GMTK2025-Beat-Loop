@@ -10,6 +10,7 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("Idle")]
     [SerializeField] private TweenSettings<Vector3> idleJiggleTweenSettings;
     [SerializeField] private TweenSettings<Vector3> idleBreatheTweenSettings;
+    [SerializeField] private TweenSettings<Vector3> pickupJiggleTweenSettings;
     
     [Header("Movement")]
     [SerializeField] private TweenSettings movementTweenSettings;
@@ -90,4 +91,10 @@ public class PlayerAnimationController : MonoBehaviour
     }
     
     #endregion
+
+    public void OnPickup()
+    {
+        //Tween.LocalRotation(modelTransform, pickupJiggleTweenSettings);
+        Tween.LocalPosition(modelTransform, pickupJiggleTweenSettings);
+    }
 }

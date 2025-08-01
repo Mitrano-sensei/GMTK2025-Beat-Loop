@@ -62,6 +62,11 @@ public class PlayerController : MonoBehaviour
     {
         return playerAnimationController.IsMoving;
     }
+
+    public void PickupItem()
+    {
+        playerAnimationController.OnPickup();
+    }
     
     private Vector3 CellToWorld(Tilemap tilemap, Vector3Int position)
     {
