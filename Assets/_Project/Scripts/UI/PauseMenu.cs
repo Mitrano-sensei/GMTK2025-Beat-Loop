@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,16 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        pauseAction.action.performed += _ => pauseMenu.SetActive(!pauseMenu.activeSelf);
+        pauseAction.action.performed += PauseInput();
+    }
+
+    private void OnDestroy()
+    {
+        pauseAction.action.performed -= PauseInput();
+    }
+
+    private Action<InputAction.CallbackContext> PauseInput()
+    {
+        return _ => pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 }

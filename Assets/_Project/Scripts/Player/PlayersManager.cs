@@ -67,16 +67,32 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private void SetupInputs()
     {
-        moveAction.action.performed += async (ctx) =>
+        moveAction.action.performed += MoveInput();
+        undoAction.action.performed += UndoInput();
+        restartAction.action.performed += RestartInput();
+    }
+
+    private void OnDestroy()
+    {
+        moveAction.action.performed -= MoveInput();
+        undoAction.action.performed -= UndoInput();
+        restartAction.action.performed -= RestartInput();
+    }
+
+    private Action<InputAction.CallbackContext> RestartInput()
+    {
+        return async ctx =>
         {
             if (_isMoving) return;
-
             _isMoving = true;
-            await OnMove(GetDirectionFromInput(ctx.ReadValue<Vector2>()));
+            await Reset();
             _isMoving = false;
         };
+    }
 
-        undoAction.action.performed += async ctx =>
+    private Action<InputAction.CallbackContext> UndoInput()
+    {
+        return async ctx =>
         {
             if (_isMoving) return;
 
@@ -84,12 +100,16 @@ public class PlayersManager : Singleton<PlayersManager>
             await Undo();
             _isMoving = false;
         };
+    }
 
-        restartAction.action.performed += async ctx =>
+    private Action<InputAction.CallbackContext> MoveInput()
+    {
+        return async (ctx) =>
         {
             if (_isMoving) return;
+
             _isMoving = true;
-            await Reset();
+            await OnMove(GetDirectionFromInput(ctx.ReadValue<Vector2>()));
             _isMoving = false;
         };
     }
