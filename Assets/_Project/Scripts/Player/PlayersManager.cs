@@ -27,11 +27,25 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private PlayerMovements[] _playersMovements;
 
+    private int CurrentTurn
+    {
+        get => _currentTurn;
+        set
+        {
+            if (_currentTurn == value) return;
+
+            _currentTurn = value;
+            if (_clapBar == null) return;
+            _clapBar.RemainingClap = maxTurns - _currentTurn;
+        }
+    }
+
     private List<NoteController> _notes = new();
     private int _currentPlayer = 0;
-    private int _currentTurn = 0;
+    private int _currentTurn;
 
     private bool _isMoving = false;
+    private ClapBar _clapBar;
 
     private void Start()
     {
@@ -85,7 +99,7 @@ public class PlayersManager : Singleton<PlayersManager>
     private async Task Reset()
     {
         _currentPlayer = 0;
-        _currentTurn = 0;
+        CurrentTurn = 0;
 
         // Move Everyone
         List<Task> tasks = new();
@@ -188,7 +202,7 @@ public class PlayersManager : Singleton<PlayersManager>
         List<Task> tasks = new();
         foreach (PlayerMovements playerMovement in PlayerBeforeCurrent)
         {
-            tasks.Add(playerMovement.Player.Move(playerMovement.Movements[_currentTurn]));
+            tasks.Add(playerMovement.Player.Move(playerMovement.Movements[CurrentTurn]));
         }
 
         tasks.Add(CurrentPlayer.Move(movement));
@@ -208,7 +222,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Here we can move the player
         CurrentPlayerMovements.Movements.Add(movement);
-        _currentTurn++;
+        CurrentTurn++;
 
         // Check if we took a note
         List<Task> pickupTasks = new();
@@ -237,7 +251,7 @@ public class PlayersManager : Singleton<PlayersManager>
             {
                 pickupTasks.Add(key.OnPickup());
                 CurrentPlayer.PickupItem();
-                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
+                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, CurrentTurn - 1));
             }
 
             // Check if another player took a key
@@ -247,18 +261,18 @@ public class PlayersManager : Singleton<PlayersManager>
                 {
                     pickupTasks.Add(key.OnPickup());
                     _playersMovements[i].Player.PickupItem();
-                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
+                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, CurrentTurn - 1));
                 }
             }
         }
 
         await Task.WhenAll(pickupTasks);
 
-        if (_currentTurn != maxTurns)
+        if (CurrentTurn != maxTurns)
             return;
 
         // Here we are at the end of a player round
-        _currentTurn = 0;
+        CurrentTurn = 0;
         _currentPlayer += 1;
 
         if (_currentPlayer > playerControllers.Length - 1)
@@ -294,7 +308,7 @@ public class PlayersManager : Singleton<PlayersManager>
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
         noteController.TakeNote(noteType);
 
-        playerMovements.TookNotes.Add(new TookNoteData(noteController, _currentTurn - 1, noteType));
+        playerMovements.TookNotes.Add(new TookNoteData(noteController, CurrentTurn - 1, noteType));
         playerMovements.Player.PickupItem();
 
         await Task.Yield();
@@ -306,7 +320,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         for (int j = 0; j < _currentPlayer; j++)
         {
-            tasks2[j] = _playersMovements[j].Player.Move(-_playersMovements[j].Movements[_currentTurn]);
+            tasks2[j] = _playersMovements[j].Player.Move(-_playersMovements[j].Movements[CurrentTurn]);
         }
 
         tasks2[_currentPlayer] = CurrentPlayer.Move(-movement);
@@ -316,7 +330,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task Undo()
     {
-        if (_currentTurn == 0)
+        if (CurrentTurn == 0)
         {
             Debug.LogWarning("Can't undo");
             // TODO : Fail sound
@@ -336,7 +350,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         await Task.WhenAll(undoTasks);
 
-        _currentTurn--;
+        CurrentTurn--;
     }
 
     private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
@@ -345,7 +359,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Check notes
         var lastPickedItem = playerMovement.TookNotes.LastOrDefault();
-        if (lastPickedItem != null && lastPickedItem.Turn == _currentTurn - 1)
+        if (lastPickedItem != null && lastPickedItem.Turn == CurrentTurn - 1)
         {
             var noteController = lastPickedItem.Reference;
             undoTasks.Add(noteController.ReturnNote(lastPickedItem.NoteType));
@@ -353,15 +367,15 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Check keys
         var lastPickedKey = playerMovement.TookKeys.LastOrDefault();
-        if (lastPickedKey != null && lastPickedKey.Turn == _currentTurn - 1)
+        if (lastPickedKey != null && lastPickedKey.Turn == CurrentTurn - 1)
         {
             var key = lastPickedKey.key;
             undoTasks.Add(key.Reset());
         }
 
         // Move Player
-        undoTasks.Add(playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]));
-        if (removeFromMovement) playerMovement.Movements.RemoveAt(_currentTurn - 1);
+        undoTasks.Add(playerMovement.Player.Move(-playerMovement.Movements[CurrentTurn - 1]));
+        if (removeFromMovement) playerMovement.Movements.RemoveAt(CurrentTurn - 1);
 
         await Task.WhenAll(undoTasks);
     }
@@ -390,6 +404,16 @@ public class PlayersManager : Singleton<PlayersManager>
             Debug.LogError("Note controller already registered");
 
         _notes.Add(noteController);
+    }
+    
+    public int GetMaxTurn()
+    {
+        return maxTurns;
+    }
+    
+    public void SetClapBar(ClapBar clapBar)
+    {
+        _clapBar = clapBar;
     }
 
     private class PlayerMovements
