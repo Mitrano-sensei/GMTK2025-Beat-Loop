@@ -12,6 +12,7 @@ public class KeyScript : MonoBehaviour
     public Vector3Int Position { get; private set; }
 
     private float _baseScale;
+    private SimpleAudioManager _audioManager;
 
     private void Awake()
     {
@@ -25,6 +26,9 @@ public class KeyScript : MonoBehaviour
 
     public async Task OnPickup()
     {
+        if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+        _audioManager.PlayPickupKeySound();
+        
         var tasks = new Task[2];
         tasks[0] = ScaleOut();
         tasks[1] = lockScript.Unlock();
@@ -42,7 +46,9 @@ public class KeyScript : MonoBehaviour
 
     public async Task Reset()
     {
-        // TODO : Sound
+        if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+        _audioManager.PlayResetSound();
+
         gameObject.SetActive(true);
         var tasks = new Task[2];
         tasks[0] = ScaleIn();

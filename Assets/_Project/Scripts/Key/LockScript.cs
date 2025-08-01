@@ -20,7 +20,6 @@ public class LockScript : MonoBehaviour
     public async Task Unlock()
     {
         await Tween.Scale(transform, startValue: _baseScale, endValue: 0f, duration: .5f, Ease.InBounce);
-        // TODO : Sound
     }
 
     public async Task Lock()

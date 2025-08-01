@@ -46,6 +46,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private bool _isMoving = false;
     private ClapBar _clapBar;
+    private SimpleAudioManager _audioManager;
 
     private void Start()
     {
@@ -165,7 +166,8 @@ public class PlayersManager : Singleton<PlayersManager>
         if (!CurrentPlayer.CanMove(movement))
         {
             await CurrentPlayer.FailMove(movement);
-            // TODO : Fail sound
+            if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+            _audioManager.PlayFailSound();
             return;
         }
 
@@ -178,7 +180,8 @@ public class PlayersManager : Singleton<PlayersManager>
             if (playerMovement.Player.CurrentCellPosition == (CurrentPlayer.CurrentCellPosition + movement))
             {
                 await CurrentPlayer.FailMove(movement);
-                // TODO : Fail sound
+                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                _audioManager.PlayFailSound();
                 return;
             }
         }
@@ -192,7 +195,8 @@ public class PlayersManager : Singleton<PlayersManager>
             if (l.GridPosition == (CurrentPlayer.CurrentCellPosition + movement))
             {
                 await CurrentPlayer.FailMove(movement);
-                // TODO : Fail sound
+                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                _audioManager.PlayFailSound();
                 return;
             }
         }
@@ -215,7 +219,8 @@ public class PlayersManager : Singleton<PlayersManager>
             if (playerMovement.Player.CurrentCellPosition == CurrentPlayer.CurrentCellPosition)
             {
                 CancelMovements(movement);
-                // TODO : Fail sound
+                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                _audioManager.PlayFailSound();
                 return;
             }
         }
@@ -241,7 +246,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         // Check if we took a key
-        
+
         foreach (KeyScript key in Keys)
         {
             if (!key.gameObject.activeSelf)
@@ -277,12 +282,19 @@ public class PlayersManager : Singleton<PlayersManager>
 
         if (_currentPlayer > playerControllers.Length - 1)
         {
-            // TODO : End game
             Debug.Log("Game finished");
             if (_notes.Exists(n => n.RemainingNotes > 0))
+            {
                 Debug.LogError("Game finished with remaining notes :c");
+                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                _audioManager.PlayLooseSound();
+            }
             else
+            {
                 Debug.LogError("Win !!");
+                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                _audioManager.PlayWinSound();
+            }
 
             return;
         }
@@ -333,10 +345,14 @@ public class PlayersManager : Singleton<PlayersManager>
         if (CurrentTurn == 0)
         {
             Debug.LogWarning("Can't undo");
-            // TODO : Fail sound
+            if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+            _audioManager.PlayNotPossibleSound();
             return;
         }
 
+        if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+        _audioManager.PlayUndoSound();
+        
         // For current player
         List<Task> undoTasks = new();
 
@@ -405,12 +421,12 @@ public class PlayersManager : Singleton<PlayersManager>
 
         _notes.Add(noteController);
     }
-    
+
     public int GetMaxTurn()
     {
         return maxTurns;
     }
-    
+
     public void SetClapBar(ClapBar clapBar)
     {
         _clapBar = clapBar;

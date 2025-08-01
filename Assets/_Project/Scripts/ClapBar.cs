@@ -17,6 +17,7 @@ public class ClapBar : MonoBehaviour
         {
             if (_remainingClap == value) return;
             _remainingClap = value;
+            _audioManager.PlayClapSound();
             RemainingClapChanged?.Invoke(value);
         }
     }
@@ -26,9 +27,12 @@ public class ClapBar : MonoBehaviour
     private int _remainingClap;
 
     private PlayersManager _playersManager;
+    private SimpleAudioManager _audioManager;
 
     public void Start()
     {
+        _audioManager = SimpleAudioManager.Instance;
+        
         _playersManager = PlayersManager.Instance;
         _playersManager.SetClapBar(this);
 
@@ -57,7 +61,7 @@ public class ClapBar : MonoBehaviour
     [ContextMenu("Clap")]
     public void Clap()
     {
-        // TODO : Play clap sound
+        _audioManager.PlayClapSound();
         RemainingClap--;
     }
 
