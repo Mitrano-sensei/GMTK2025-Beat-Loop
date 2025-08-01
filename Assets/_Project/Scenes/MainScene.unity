@@ -2980,54 +2980,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.ease
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.duration
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284577899171983712, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
-      propertyPath: movementTweenSettings.customEase.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7921777059510819521, guid: 34ad4033ec347b44cb58bbd472350202, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.419

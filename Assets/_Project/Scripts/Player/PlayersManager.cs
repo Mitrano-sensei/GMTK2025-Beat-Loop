@@ -211,23 +211,23 @@ public class PlayersManager : Singleton<PlayersManager>
         _currentTurn++;
 
         // Check if we took a note
+        List<Task> pickupTasks = new();
         foreach (NoteController noteController in _notes)
         {
             var playerNumber = _currentPlayer;
-            var player = CurrentPlayer;
             var playerMovements = CurrentPlayerMovements;
 
-            await CheckIfTookNote(noteController, playerNumber, playerMovements);
+            pickupTasks.Add(CheckIfTookNote(noteController, playerNumber, playerMovements));
 
             // Check if another player took a note
             for (int i = 0; i < _currentPlayer; i++)
             {
-                await CheckIfTookNote(noteController, i, _playersMovements[i]);
+                pickupTasks.Add(CheckIfTookNote(noteController, i, _playersMovements[i]));
             }
         }
 
         // Check if we took a key
-        List<Task> pickupTasks = new();
+        
         foreach (KeyScript key in Keys)
         {
             if (!key.gameObject.activeSelf)
@@ -236,6 +236,7 @@ public class PlayersManager : Singleton<PlayersManager>
             if (key.Position == CurrentPlayer.CurrentCellPosition)
             {
                 pickupTasks.Add(key.OnPickup());
+                CurrentPlayer.PickupItem();
                 CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
             }
 
@@ -245,6 +246,7 @@ public class PlayersManager : Singleton<PlayersManager>
                 if (key.Position == _playersMovements[i].Player.CurrentCellPosition)
                 {
                     pickupTasks.Add(key.OnPickup());
+                    _playersMovements[i].Player.PickupItem();
                     _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
                 }
             }
@@ -290,13 +292,12 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
-        var tookNote = await noteController.TakeNote(noteType);
+        noteController.TakeNote(noteType);
 
-        if (tookNote)
-        {
-            // TODO : Take note sound
-            playerMovements.TookNotes.Add(new TookNoteData(noteController, _currentTurn - 1, noteType));
-        }
+        playerMovements.TookNotes.Add(new TookNoteData(noteController, _currentTurn - 1, noteType));
+        playerMovements.Player.PickupItem();
+
+        await Task.Yield();
     }
 
     private async void CancelMovements(Vector3Int movement)
