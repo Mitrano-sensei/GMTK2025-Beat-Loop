@@ -57,16 +57,19 @@ public class NoteController : MonoBehaviour
         switch (noteNumber)
         {
             case 1:
+                if (!_isNote1Active) return;
                 _isNote1Active = false;
                 _audioManager.PlayNote(1);
                 await DeathAnimation(note1, spriteRenderer1);
                 break;
             case 2:
+                if (!_isNote2Active) return;
                 _audioManager.PlayNote(2);
                 _isNote2Active = false;
                 await DeathAnimation(note2, spriteRenderer2);
                 break;
             case 3:
+                if (!_isNote3Active) return;
                 _isNote3Active = false;
                 _audioManager.PlayNote(3);
                 await DeathAnimation(note3, spriteRenderer3);
@@ -133,5 +136,21 @@ public class NoteController : MonoBehaviour
         spriteRenderer1.enabled = _isNote1Active;
         spriteRenderer2.enabled = _isNote2Active;
         spriteRenderer3.enabled = _isNote3Active;
+    }
+
+    public bool IsNoteAvailable(int noteType)
+    {
+        switch (noteType)
+        {
+            case 1:
+                return _isNote1Active;
+            case 2:
+                return _isNote2Active;
+            case 3:
+                return _isNote3Active;
+            default:
+                return false;
+            
+        }
     }
 }

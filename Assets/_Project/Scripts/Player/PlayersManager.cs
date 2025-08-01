@@ -192,12 +192,23 @@ public class PlayersManager : Singleton<PlayersManager>
             if (playerMovement == CurrentPlayerMovements)
                 continue;
 
-            if (playerMovement.Player.CurrentCellPosition == (CurrentPlayer.CurrentCellPosition + movement))
+            var playerIsActive = playerMovement.Player.isActiveAndEnabled;
+            var playerIsInOurWay = playerMovement.Player.CurrentCellPosition ==
+                                   (CurrentPlayer.CurrentCellPosition + movement);
+
+            if (playerIsActive && playerIsInOurWay)
             {
-                await CurrentPlayer.FailMove(movement);
-                if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
-                _audioManager.PlayFailSound();
-                return;
+                var playerIsGoingOurWay = playerMovement.Movements[CurrentTurn] == -movement;
+                if (playerIsGoingOurWay)
+                {
+                    List<Task> fails = new();
+                    fails.Add(CurrentPlayer.FailMove(movement));
+                    fails.Add(playerMovement.Player.FailMove(-movement));
+                    
+                    if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
+                    _audioManager.PlayFailSound();
+                    return;
+                }
             }
         }
 
@@ -292,7 +303,7 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         // Here we are at the end of a player round
-        
+
         CurrentTurn = 0;
         _currentPlayer += 1;
 
@@ -318,7 +329,7 @@ public class PlayersManager : Singleton<PlayersManager>
         // To enable undo
         _currentPlayer--;
         CurrentTurn = maxTurns;
-            
+
         Debug.Log("Game finished");
         if (_notes.Exists(n => n.RemainingNotes > 0))
         {
@@ -353,6 +364,9 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
+        if (!noteController.IsNoteAvailable(noteType))
+            return;
+
         await noteController.TakeNote(noteType);
 
         playerMovements.TookNotes.Add(new TookNoteData(noteController, CurrentTurn - 1, noteType));
@@ -382,7 +396,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Allow undo of very last move
         var lastMove = _currentPlayer == _playersMovements.Length - 1 && CurrentTurn == maxTurns;
-        
+
         if (CurrentTurn == 0 && !lastMove)
         {
             Debug.LogWarning("Can't undo");
@@ -393,7 +407,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         if (_audioManager == null) _audioManager = SimpleAudioManager.Instance;
         _audioManager.PlayUndoSound();
-        
+
         await UndoEveryone();
 
         CurrentTurn--;
