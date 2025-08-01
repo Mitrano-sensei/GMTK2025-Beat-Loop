@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class ClapBar : MonoBehaviour
 {
@@ -48,6 +49,16 @@ public class ClapBar : MonoBehaviour
         }
 
         RemainingClapChanged += nbClap => { UpdateNumberOfClap(); };
+    }
+
+    private void Update()
+    {
+        int i = 0;
+        foreach (var clap in clapPrefabs)
+        {
+            clap.transform.localPosition = clap.transform.localPosition.WithY(Mathf.Sin(Time.time * 2 + i) * 0.1f * 0.8f) ;
+            i++;
+        }
     }
 
     private void UpdateNumberOfClap()

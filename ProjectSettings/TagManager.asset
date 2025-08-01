@@ -42,5 +42,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Au dela de la lumiere
+    uniqueID: 1643807637
+    locked: 0
   m_RenderingLayers:
   - Default
