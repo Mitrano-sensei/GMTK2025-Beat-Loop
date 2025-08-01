@@ -227,6 +227,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         // Check if we took a key
+        List<Task> pickupTasks = new();
         foreach (KeyScript key in Keys)
         {
             if (!key.gameObject.activeSelf)
@@ -234,8 +235,8 @@ public class PlayersManager : Singleton<PlayersManager>
 
             if (key.Position == CurrentPlayer.CurrentCellPosition)
             {
-                key.OnPickup();
-                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn));
+                pickupTasks.Add(key.OnPickup());
+                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
             }
 
             // Check if another player took a key
@@ -243,11 +244,13 @@ public class PlayersManager : Singleton<PlayersManager>
             {
                 if (key.Position == _playersMovements[i].Player.CurrentCellPosition)
                 {
-                    key.OnPickup();
-                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn));
+                    pickupTasks.Add(key.OnPickup());
+                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn - 1));
                 }
             }
         }
+
+        await Task.WhenAll(pickupTasks);
 
         if (_currentTurn != maxTurns)
             return;
@@ -337,12 +340,14 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
     {
+        List<Task> undoTasks = new();
+
         // Check notes
         var lastPickedItem = playerMovement.TookNotes.LastOrDefault();
         if (lastPickedItem != null && lastPickedItem.Turn == _currentTurn - 1)
         {
             var noteController = lastPickedItem.Reference;
-            noteController.ReturnNote(lastPickedItem.NoteType);
+            undoTasks.Add(noteController.ReturnNote(lastPickedItem.NoteType));
         }
 
         // Check keys
@@ -350,12 +355,14 @@ public class PlayersManager : Singleton<PlayersManager>
         if (lastPickedKey != null && lastPickedKey.Turn == _currentTurn - 1)
         {
             var key = lastPickedKey.key;
-            key.Reset();
+            undoTasks.Add(key.Reset());
         }
 
         // Move Player
-        await playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]);
+        undoTasks.Add(playerMovement.Player.Move(-playerMovement.Movements[_currentTurn - 1]));
         if (removeFromMovement) playerMovement.Movements.RemoveAt(_currentTurn - 1);
+
+        await Task.WhenAll(undoTasks);
     }
 
     private Vector3Int GetDirectionFromInput(Vector2 input)

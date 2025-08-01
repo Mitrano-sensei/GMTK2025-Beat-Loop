@@ -85,24 +85,24 @@ public class NoteController : MonoBehaviour
         return true;
     }
 
-    public void ReturnNote(int type)
+    public async Task ReturnNote(int type)
     {
         switch (type)
         {
             case 1:
                 if (!initialNote1Active) throw new Exception("Pas déprenable");
                 _isNote1Active = true;
-                ComeBackAnimation(note1, spriteRenderer1);
+                await ComeBackAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active) throw new Exception("Pas déprenable");
                 _isNote2Active = true;
-                ComeBackAnimation(note1, spriteRenderer2);
+                await ComeBackAnimation(note1, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active) throw new Exception("Pas déprenable");
                 _isNote3Active = true;
-                ComeBackAnimation(note1, spriteRenderer3);
+                await ComeBackAnimation(note1, spriteRenderer3);
                 break;
             
         }
@@ -116,7 +116,7 @@ public class NoteController : MonoBehaviour
         note.localScale = _baseScale;
     }
     
-    private async void ComeBackAnimation(Transform note, SpriteRenderer spriteRenderer)
+    private async Task ComeBackAnimation(Transform note, SpriteRenderer spriteRenderer)
     {
         // TODO : Sound
         note.localScale = Vector3.zero;
