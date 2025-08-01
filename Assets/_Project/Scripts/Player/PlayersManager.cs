@@ -21,7 +21,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
     [SerializeField] private Button restartButton;
 
-    private PlayerController CurrentPlayer => _playersMovements[_currentPlayer].Player;
+    private PlayerController CurrentPlayer => _playersMovements[_currentPlayer]?.Player;
     private PlayerMovements CurrentPlayerMovements => _playersMovements[_currentPlayer];
     private PlayerMovements[] PlayerBeforeCurrent => _playersMovements.Take(_currentPlayer).ToArray();
 
@@ -175,7 +175,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task OnMove(Vector3Int movement)
     {
-        if (CurrentPlayer.IsMoving() || movement == Vector3Int.zero)
+        if (CurrentPlayer == null || !CurrentPlayer.isActiveAndEnabled || CurrentPlayer.IsMoving() || movement == Vector3Int.zero)
             return;
 
         if (!CurrentPlayer.CanMove(movement))
