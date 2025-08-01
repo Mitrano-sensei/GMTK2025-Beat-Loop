@@ -9,17 +9,18 @@ using Utilities;
 public class PlayersManager : Singleton<PlayersManager>
 {
     [SerializeField] private PlayerController[] playerControllers;
+    
     [SerializeField] private int maxTurns = 3;
 
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference undoAction;
     [SerializeField] private InputActionReference restartAction;
 
-    private PlayerController CurrentPlayer => _playerMovements[_currentPlayer].Player;
-    private PlayerMovements CurrentPlayerMovements => _playerMovements[_currentPlayer];
-    private PlayerMovements[] PlayerBeforeCurrent => _playerMovements.Take(_currentPlayer).ToArray();
+    private PlayerController CurrentPlayer => _playersMovements[_currentPlayer].Player;
+    private PlayerMovements CurrentPlayerMovements => _playersMovements[_currentPlayer];
+    private PlayerMovements[] PlayerBeforeCurrent => _playersMovements.Take(_currentPlayer).ToArray();
 
-    private PlayerMovements[] _playerMovements;
+    private PlayerMovements[] _playersMovements;
 
     private List<NoteController> _notes = new();
     private int _currentPlayer = 0;
@@ -29,17 +30,12 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private void Start()
     {
-        _playerMovements = new PlayerMovements[playerControllers.Length];
+        SetupPlayerMovements();
+        SetupInputs();
+    }
 
-        for (int i = 0; i < playerControllers.Length; i++)
-        {
-            var playerController = playerControllers[i];
-            playerController.FixPlayerPositionToGrid();
-            _playerMovements[i] = new PlayerMovements(playerController);
-            if (i != 0)
-                playerController.gameObject.SetActive(false);
-        }
-
+    private void SetupInputs()
+    {
         moveAction.action.performed += async (ctx) =>
         {
             if (_isMoving) return;
@@ -67,6 +63,20 @@ public class PlayersManager : Singleton<PlayersManager>
         };
     }
 
+    private void SetupPlayerMovements()
+    {
+        _playersMovements = new PlayerMovements[playerControllers.Length];
+
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            var playerController = playerControllers[i];
+            playerController.FixPlayerPositionToGrid();
+            _playersMovements[i] = new PlayerMovements(playerController);
+            if (i != 0)
+                playerController.gameObject.SetActive(false);
+        }
+    }
+
     private async Task Reset()
     {
         _currentPlayer = 0;
@@ -74,17 +84,17 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Move Everyone
         List<Task> tasks = new();
-        foreach (var playerMovement in _playerMovements)
+        foreach (var playerMovement in _playersMovements)
         {
             playerMovement.Movements.Clear();
             tasks.Add(playerMovement.Player.MoveTo(playerMovement.InitialPosition));
         }
 
         await Task.WhenAll(tasks);
-        _playerMovements[0].Player.gameObject.SetActive(true);
-        for (int i = 1; i < _playerMovements.Length; i++)
+        _playersMovements[0].Player.gameObject.SetActive(true);
+        for (int i = 1; i < _playersMovements.Length; i++)
         {
-            _playerMovements[i].Player.gameObject.SetActive(false);
+            _playersMovements[i].Player.gameObject.SetActive(false);
         }
 
         // Reset Notes
@@ -98,7 +108,7 @@ public class PlayersManager : Singleton<PlayersManager>
             noteController.Reset();
         }
 
-        foreach (var playerMovement in _playerMovements)
+        foreach (var playerMovement in _playersMovements)
         {
             playerMovement.TookNotes.Clear();
         }
@@ -127,7 +137,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         // Check if there is another player in our destination
-        foreach (PlayerMovements playerMovement in _playerMovements)
+        foreach (PlayerMovements playerMovement in _playersMovements)
         {
             if (playerMovement == CurrentPlayerMovements)
                 continue;
@@ -174,42 +184,43 @@ public class PlayersManager : Singleton<PlayersManager>
             var player = CurrentPlayer;
             var playerMovements = CurrentPlayerMovements;
 
-            CheckIfTookNote(noteController, playerNumber, playerMovements);
+            await CheckIfTookNote(noteController, playerNumber, playerMovements);
             for (int i = 0; i < _currentPlayer; i++)
             {
-                CheckIfTookNote(noteController, i, _playerMovements[i]);
+                await CheckIfTookNote(noteController, i, _playersMovements[i]);
             }
         }
 
-        if (_currentTurn == maxTurns)
+        if (_currentTurn != maxTurns)
+            return;
+        
+        // Here we are at the end of a player round
+        _currentTurn = 0;
+        _currentPlayer += 1;
+
+        if (_currentPlayer > playerControllers.Length - 1)
         {
-            _currentTurn = 0;
-            _currentPlayer += 1;
+            // TODO : End game
+            Debug.Log("Game finished");
+            if (_notes.Exists(n => n.RemainingNotes > 0))
+                Debug.LogError("Game finished with remaining notes :c");
+            else
+                Debug.LogError("Win !!");
 
-            if (_currentPlayer > playerControllers.Length - 1)
-            {
-                // TODO : End game
-                Debug.Log("Game finished");
-                if (_notes.Exists(n => n.RemainingNotes > 0))
-                    Debug.LogError("Game finished with remaining notes :c");
-                else
-                    Debug.LogError("Win !!");
-
-                return;
-            }
-
-            _playerMovements[_currentPlayer].Player.gameObject.SetActive(true);
-
-            foreach (PlayerMovements playerMovement in PlayerBeforeCurrent)
-            {
-                playerMovement.Player.MoveTo(playerMovement.InitialPosition);
-            }
-
-            ResetNotes();
+            return;
         }
+
+        _playersMovements[_currentPlayer].Player.gameObject.SetActive(true);
+
+        foreach (PlayerMovements playerMovement in PlayerBeforeCurrent)
+        {
+            playerMovement.Player.MoveTo(playerMovement.InitialPosition);
+        }
+
+        ResetNotes();
     }
 
-    private async void CheckIfTookNote(NoteController noteController, int playerNumber,
+    private async Task CheckIfTookNote(NoteController noteController, int playerNumber,
         PlayerMovements playerMovements)
     {
         var player = playerMovements.Player;
@@ -217,7 +228,7 @@ public class PlayersManager : Singleton<PlayersManager>
             return;
 
         var noteType = playerNumber + 1; // +1 bc between 1 and 3
-        var tookNote = noteController.TakeNote(noteType);
+        var tookNote = await noteController.TakeNote(noteType);
 
         if (tookNote)
         {
@@ -232,7 +243,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         for (int j = 0; j < _currentPlayer; j++)
         {
-            tasks2[j] = _playerMovements[j].Player.Move(-_playerMovements[j].Movements[_currentTurn]);
+            tasks2[j] = _playersMovements[j].Player.Move(-_playersMovements[j].Movements[_currentTurn]);
         }
 
         tasks2[_currentPlayer] = CurrentPlayer.Move(-movement);

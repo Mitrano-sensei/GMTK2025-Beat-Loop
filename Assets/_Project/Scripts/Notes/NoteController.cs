@@ -36,14 +36,14 @@ public class NoteController : MonoBehaviour
         FixPlayerPositionToGrid();
         PlayersManager.Instance.RegisterNoteController(this);
     }
-    
-    public void FixPlayerPositionToGrid()
+
+    private void FixPlayerPositionToGrid()
     {
         var position = groundTileMap.WorldToCell(transform.position);
         transform.position = CellToWorld(groundTileMap, position);
     }
     
-    public bool TakeNote(int noteNumber)
+    public async Task<bool> TakeNote(int noteNumber)
     {
         if (noteNumber is < 1 or > 3)
         {
@@ -60,7 +60,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote1Active = false;
-                DeathAnimation(note1, spriteRenderer1);
+                await DeathAnimation(note1, spriteRenderer1);
                 break;
             case 2:
                 if (!initialNote2Active)
@@ -69,7 +69,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote2Active = false;
-                DeathAnimation(note2, spriteRenderer2);
+                await DeathAnimation(note2, spriteRenderer2);
                 break;
             case 3:
                 if (!initialNote3Active)
@@ -78,7 +78,7 @@ public class NoteController : MonoBehaviour
                     return false;
                 }
                 _isNote3Active = false;
-                DeathAnimation(note3, spriteRenderer3);
+                await DeathAnimation(note3, spriteRenderer3);
                 break;
         }
 
@@ -108,7 +108,7 @@ public class NoteController : MonoBehaviour
         }
     }
 
-    private async void DeathAnimation(Transform note, SpriteRenderer spriteRenderer)
+    private async Task DeathAnimation(Transform note, SpriteRenderer spriteRenderer)
     {
         // TODO: Sound
         await Tween.Scale(note, startValue:_baseScale, endValue:Vector3.zero, duration: 0.5f, Ease.OutBounce);
