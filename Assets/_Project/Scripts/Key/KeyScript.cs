@@ -15,12 +15,14 @@ public class KeyScript : MonoBehaviour
 
     public void OnPickup()
     {
+        // TODO : Animate
         lockScript.Unlock();
         gameObject.SetActive(false);
     }
 
     public void Reset()
     {
+        // TODO : Animate
         gameObject.SetActive(true);
         lockScript.Lock();
     }

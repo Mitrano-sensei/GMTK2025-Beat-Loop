@@ -9,7 +9,7 @@ using Utilities;
 public class PlayersManager : Singleton<PlayersManager>
 {
     [SerializeField] private PlayerController[] playerControllers;
-    
+
     [SerializeField] private int maxTurns = 3;
 
     [SerializeField] private InputActionReference moveAction;
@@ -104,6 +104,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         // Reset Notes
         ResetNotes();
+        ResetKeys();
     }
 
     private void ResetNotes()
@@ -116,6 +117,19 @@ public class PlayersManager : Singleton<PlayersManager>
         foreach (var playerMovement in _playersMovements)
         {
             playerMovement.TookNotes.Clear();
+        }
+    }
+
+    private void ResetKeys()
+    {
+        foreach (var key in Keys)
+        {
+            key.Reset();
+        }
+
+        foreach (var playerMovement in _playersMovements)
+        {
+            playerMovement.TookKeys.Clear();
         }
     }
 
@@ -154,13 +168,13 @@ public class PlayersManager : Singleton<PlayersManager>
                 return;
             }
         }
-        
+
         // Check if there is a lock in our destination
         foreach (LockScript l in Locks)
         {
             if (!l.gameObject.activeSelf)
                 continue;
-            
+
             if (l.GridPosition == (CurrentPlayer.CurrentCellPosition + movement))
             {
                 await CurrentPlayer.FailMove(movement);
@@ -204,28 +218,40 @@ public class PlayersManager : Singleton<PlayersManager>
             var playerMovements = CurrentPlayerMovements;
 
             await CheckIfTookNote(noteController, playerNumber, playerMovements);
+
+            // Check if another player took a note
             for (int i = 0; i < _currentPlayer; i++)
             {
                 await CheckIfTookNote(noteController, i, _playersMovements[i]);
             }
         }
-        
+
         // Check if we took a key
         foreach (KeyScript key in Keys)
         {
             if (!key.gameObject.activeSelf)
                 continue;
-            
+
             if (key.Position == CurrentPlayer.CurrentCellPosition)
             {
                 key.OnPickup();
                 CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn));
             }
+
+            // Check if another player took a key
+            for (int i = 0; i < _currentPlayer; i++)
+            {
+                if (key.Position == _playersMovements[i].Player.CurrentCellPosition)
+                {
+                    key.OnPickup();
+                    _playersMovements[i].TookKeys.Add(new TookKeyData(key, _currentTurn));
+                }
+            }
         }
 
         if (_currentTurn != maxTurns)
             return;
-        
+
         // Here we are at the end of a player round
         _currentTurn = 0;
         _currentPlayer += 1;
@@ -250,6 +276,7 @@ public class PlayersManager : Singleton<PlayersManager>
         }
 
         ResetNotes();
+        ResetKeys();
     }
 
     private async Task CheckIfTookNote(NoteController noteController, int playerNumber,
@@ -310,12 +337,20 @@ public class PlayersManager : Singleton<PlayersManager>
 
     private async Task UndoPlayer(PlayerMovements playerMovement, bool removeFromMovement = false)
     {
-        // Check items
+        // Check notes
         var lastPickedItem = playerMovement.TookNotes.LastOrDefault();
         if (lastPickedItem != null && lastPickedItem.Turn == _currentTurn - 1)
         {
             var noteController = lastPickedItem.Reference;
             noteController.ReturnNote(lastPickedItem.NoteType);
+        }
+
+        // Check keys
+        var lastPickedKey = playerMovement.TookKeys.LastOrDefault();
+        if (lastPickedKey != null && lastPickedKey.Turn == _currentTurn - 1)
+        {
+            var key = lastPickedKey.key;
+            key.Reset();
         }
 
         // Move Player
@@ -362,6 +397,7 @@ public class PlayersManager : Singleton<PlayersManager>
             Player = player;
             Movements = new();
             TookNotes = new();
+            TookKeys = new();
             InitialPosition = player.CurrentCellPosition;
         }
     }
