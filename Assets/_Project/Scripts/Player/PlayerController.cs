@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     // Check if a grid has a tile at this position
     public bool CanMove(Vector3Int movement)
     {
+        if (transform == null) return false;
         var position = groundTileMap.WorldToCell(transform.position);
         var newPosition = position + movement;
         
