@@ -16,9 +16,14 @@ public class PlayersManager : Singleton<PlayersManager>
     [SerializeField] private InputActionReference undoAction;
     [SerializeField] private InputActionReference restartAction;
 
+    [SerializeField] private List<KeyLockData> keyLockDatas;
+
     private PlayerController CurrentPlayer => _playersMovements[_currentPlayer].Player;
     private PlayerMovements CurrentPlayerMovements => _playersMovements[_currentPlayer];
     private PlayerMovements[] PlayerBeforeCurrent => _playersMovements.Take(_currentPlayer).ToArray();
+
+    private List<LockScript> Locks => keyLockDatas.Select(kl => kl.lockScript).ToList();
+    private List<KeyScript> Keys => keyLockDatas.Select(kl => kl.key).ToList();
 
     private PlayerMovements[] _playersMovements;
 
@@ -149,6 +154,20 @@ public class PlayersManager : Singleton<PlayersManager>
                 return;
             }
         }
+        
+        // Check if there is a lock in our destination
+        foreach (LockScript l in Locks)
+        {
+            if (!l.gameObject.activeSelf)
+                continue;
+            
+            if (l.GridPosition == (CurrentPlayer.CurrentCellPosition + movement))
+            {
+                await CurrentPlayer.FailMove(movement);
+                // TODO : Fail sound
+                return;
+            }
+        }
 
 
         // Move all players
@@ -177,7 +196,7 @@ public class PlayersManager : Singleton<PlayersManager>
         CurrentPlayerMovements.Movements.Add(movement);
         _currentTurn++;
 
-        // Check if we took items
+        // Check if we took a note
         foreach (NoteController noteController in _notes)
         {
             var playerNumber = _currentPlayer;
@@ -188,6 +207,19 @@ public class PlayersManager : Singleton<PlayersManager>
             for (int i = 0; i < _currentPlayer; i++)
             {
                 await CheckIfTookNote(noteController, i, _playersMovements[i]);
+            }
+        }
+        
+        // Check if we took a key
+        foreach (KeyScript key in Keys)
+        {
+            if (!key.gameObject.activeSelf)
+                continue;
+            
+            if (key.Position == CurrentPlayer.CurrentCellPosition)
+            {
+                key.OnPickup();
+                CurrentPlayerMovements.TookKeys.Add(new TookKeyData(key, _currentTurn));
             }
         }
 
@@ -322,6 +354,7 @@ public class PlayersManager : Singleton<PlayersManager>
         public PlayerController Player { get; private set; }
         public List<Vector3Int> Movements { get; private set; }
         public List<TookNoteData> TookNotes { get; private set; }
+        public List<TookKeyData> TookKeys { get; private set; }
         public Vector3Int InitialPosition { get; private set; }
 
         public PlayerMovements(PlayerController player)
@@ -345,5 +378,26 @@ public class PlayersManager : Singleton<PlayersManager>
             Turn = turn;
             NoteType = noteType;
         }
+    }
+
+    private class TookKeyData
+    {
+        public KeyScript key;
+
+        public Vector3Int position => key.Position;
+        public int Turn { get; private set; }
+
+        public TookKeyData(KeyScript key, int turn)
+        {
+            this.key = key;
+            Turn = turn;
+        }
+    }
+
+    [Serializable]
+    private class KeyLockData
+    {
+        public KeyScript key;
+        public LockScript lockScript;
     }
 }
